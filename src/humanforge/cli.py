@@ -123,8 +123,11 @@ def _cmd_pipeline(args: argparse.Namespace) -> int:
     if args.retarget:
         from humanforge.character.schema import RetargetProfile, RigProfile
         retarget_data = json.loads(Path(args.retarget).read_text(encoding="utf-8"))
-        rig = RigProfile.from_dict(retarget_data.get("rig_profile", {}))
         retarget_prof = RetargetProfile.from_dict(retarget_data)
+        if args.rig_profile:
+            rig = RigProfile.from_file(args.rig_profile)
+        else:
+            rig = RigProfile.from_dict(retarget_data["rig_profile"])
         character_id = args.character_id or retarget_prof.profile_id
         p = p.retarget(rig_profile=rig, retarget_profile=retarget_prof, character_id=character_id)
 
@@ -196,6 +199,7 @@ def main(argv: list[str] | None = None) -> int:
     p_pipeline.add_argument("destination_type", help="Destination type")
     p_pipeline.add_argument("-o", "--output", help="Output file path")
     p_pipeline.add_argument("--retarget", help="Path to a retarget profile JSON")
+    p_pipeline.add_argument("--rig-profile", dest="rig_profile", help="Path to a rig profile JSON (required when --retarget file has no embedded rig_profile)")
     p_pipeline.add_argument("--character-id", dest="character_id", help="Character ID for retargeting")
     p_pipeline.add_argument("--inspect", action="store_true", help="Run quality inspection")
     p_pipeline.set_defaults(func=_cmd_pipeline)

@@ -293,6 +293,7 @@ class EyeBlinkCheck(InspectionCheck):
             for f in pkg.frames:
                 ch = f.face_channel(eye_name)
                 if ch is None:
+                    last_blink_time = None
                     continue
                 if ch.value > 0.5:
                     last_blink_time = f.timecode.time_seconds
