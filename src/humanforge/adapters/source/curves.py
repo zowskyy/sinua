@@ -133,10 +133,9 @@ def _build_frames(
         for name, values in channels.items():
             raw = values[i] if i < len(values) else float("nan")
             if math.isnan(raw):
-                # Missing value: include channel with None confidence so
-                # downstream knows the channel exists but data is absent.
+                # Missing value: confidence=None signals "not measured" per SPF contract.
                 face_channels.append(
-                    FaceChannel(name=name, value=0.0, confidence=Confidence(value=0.0, reason="missing"))
+                    FaceChannel(name=name, value=0.0, confidence=None)
                 )
             else:
                 face_channels.append(FaceChannel(name=name, value=raw, confidence=Confidence.certain()))

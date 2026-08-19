@@ -110,6 +110,10 @@ class Pipeline:
             character_id=character_id,
             unmapped_policy=unmapped_policy,
         )
+        self._spf_result = validate_package(self._pkg)
+        self._report = None
+        self._export_path = None
+        self._export_validation = None
         return self
 
     # ------------------------------------------------------------------

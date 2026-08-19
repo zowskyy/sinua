@@ -134,7 +134,11 @@ class LowConfidenceCheck(InspectionCheck):
             for f in pkg.frames:
                 ch = f.face_channel(name)
                 # confidence=None means "unknown", not "low" — only flag explicit low confidence
-                is_low = ch is None or (ch.confidence is not None and ch.confidence.value < self.threshold)
+                is_low = (
+                    ch is not None
+                    and ch.confidence is not None
+                    and ch.confidence.value < self.threshold
+                )
                 if is_low:
                     if run == 0:
                         run_start = f.timecode.frame_index
@@ -288,9 +292,13 @@ class EyeBlinkCheck(InspectionCheck):
             last_blink_time: float | None = None
             for f in pkg.frames:
                 ch = f.face_channel(eye_name)
-                if ch is not None and ch.value > 0.5:
+                if ch is None:
+                    continue
+                if ch.value > 0.5:
                     last_blink_time = f.timecode.time_seconds
-                elif last_blink_time is not None:
+                else:
+                    if last_blink_time is None:
+                        last_blink_time = f.timecode.time_seconds
                     gap = f.timecode.time_seconds - last_blink_time
                     if gap > self.max_no_blink_seconds:
                         findings.append(Finding(

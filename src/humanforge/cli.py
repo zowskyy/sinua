@@ -124,8 +124,9 @@ def _cmd_pipeline(args: argparse.Namespace) -> int:
         from humanforge.character.schema import RetargetProfile, RigProfile
         retarget_data = json.loads(Path(args.retarget).read_text(encoding="utf-8"))
         rig = RigProfile.from_dict(retarget_data.get("rig_profile", {}))
-        retarget = RetargetProfile.from_dict(retarget_data)
-        p = p.retarget(rig_profile=rig, retarget_profile=retarget)
+        retarget_prof = RetargetProfile.from_dict(retarget_data)
+        character_id = args.character_id or retarget_prof.profile_id
+        p = p.retarget(rig_profile=rig, retarget_profile=retarget_prof, character_id=character_id)
 
     if args.inspect:
         p = p.inspect(destination_type=args.destination_type)
@@ -134,13 +135,13 @@ def _cmd_pipeline(args: argparse.Namespace) -> int:
     p = p.export(args.destination_type, output)
     result = p.result()
 
-    pkg = result["package"]
+    pkg = result.package
     print(f"Pipeline complete: {pkg.frame_count} frames")
-    if "export_path" in result:
-        print(f"Output: {result['export_path']}")
-    if "inspection" in result and not result["inspection"].passed:
+    if result.export_path is not None:
+        print(f"Output: {result.export_path}")
+    if result.report is not None and not result.report.passed:
         print("Inspection warnings:")
-        for c in result["inspection"].check_results:
+        for c in result.report.check_results:
             if not c.passed:
                 print(f"  [{c.severity.upper()}] {c.name}")
 
@@ -195,6 +196,7 @@ def main(argv: list[str] | None = None) -> int:
     p_pipeline.add_argument("destination_type", help="Destination type")
     p_pipeline.add_argument("-o", "--output", help="Output file path")
     p_pipeline.add_argument("--retarget", help="Path to a retarget profile JSON")
+    p_pipeline.add_argument("--character-id", dest="character_id", help="Character ID for retargeting")
     p_pipeline.add_argument("--inspect", action="store_true", help="Run quality inspection")
     p_pipeline.set_defaults(func=_cmd_pipeline)
 

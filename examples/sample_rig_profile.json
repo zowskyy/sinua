@@ -1,13 +1,17 @@
 {
   "profile_id": "example.hero.rig.v1",
+  "name": "Example Hero Rig",
+  "version": "1.0",
+  "coordinate_system": "y_up_right_handed",
+  "unit_scale": 1.0,
   "facial_controls": [
-    {"name": "jawOpen",         "min": 0.0, "max": 1.0, "default": 0.0},
-    {"name": "mouthSmileLeft",  "min": 0.0, "max": 1.0, "default": 0.0},
-    {"name": "mouthSmileRight", "min": 0.0, "max": 1.0, "default": 0.0},
-    {"name": "eyeBlinkLeft",    "min": 0.0, "max": 1.0, "default": 0.0},
-    {"name": "eyeBlinkRight",   "min": 0.0, "max": 1.0, "default": 0.0},
-    {"name": "browInnerUp",     "min": 0.0, "max": 1.0, "default": 0.0},
-    {"name": "mouthFunnel",     "min": 0.0, "max": 1.0, "default": 0.0}
+    {"name": "jawOpen",         "control_type": "blendshape", "min_value": 0.0, "max_value": 1.0, "default_value": 0.0},
+    {"name": "mouthSmileLeft",  "control_type": "blendshape", "min_value": 0.0, "max_value": 1.0, "default_value": 0.0},
+    {"name": "mouthSmileRight", "control_type": "blendshape", "min_value": 0.0, "max_value": 1.0, "default_value": 0.0},
+    {"name": "eyeBlinkLeft",    "control_type": "blendshape", "min_value": 0.0, "max_value": 1.0, "default_value": 0.0},
+    {"name": "eyeBlinkRight",   "control_type": "blendshape", "min_value": 0.0, "max_value": 1.0, "default_value": 0.0},
+    {"name": "browInnerUp",     "control_type": "blendshape", "min_value": 0.0, "max_value": 1.0, "default_value": 0.0},
+    {"name": "mouthFunnel",     "control_type": "blendshape", "min_value": 0.0, "max_value": 1.0, "default_value": 0.0}
   ],
   "skeleton_joints": [
     {"name": "Root",   "parent": null},

@@ -199,6 +199,7 @@ def _quat_from(v: list | None) -> tuple[float, float, float, float] | None:
 
 
 def package_from_dict(d: dict) -> SemanticPerformancePackage:
+    _check_version(d.get("schema_version", ""))
     return SemanticPerformancePackage(
         schema_version=d["schema_version"],
         source=_source_from(d["source"]),

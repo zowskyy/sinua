@@ -112,10 +112,10 @@ class TestConfidence:
         c = Confidence.certain()
         assert c.value == 1.0
 
-    def test_unknown(self):
-        c = Confidence.unknown()
-        assert c.value == 0.0
-        assert c.reason == "unknown"
+    def test_unknown_uses_none(self):
+        # SPF contract: "not measured" is expressed as confidence=None on the parent field,
+        # not as a Confidence object. Confidence.unknown() was removed to prevent misuse.
+        assert not hasattr(Confidence, "unknown")
 
 
 class TestSemanticPerformancePackage:

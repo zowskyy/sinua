@@ -174,3 +174,6 @@ class BvhDestinationAdapter(DestinationAdapter):
 def _rot(angles: tuple[float, float, float], axis: str) -> float:
     """Extract one Euler angle from a (rx, ry, rz) tuple by axis letter."""
     return {"X": angles[0], "Y": angles[1], "Z": angles[2]}[axis]
+
+
+register_destination(BvhDestinationAdapter())

@@ -15,7 +15,6 @@ from dataclasses import replace
 from humanforge.character.schema import ChannelMapping, RetargetProfile, RigProfile
 from humanforge.spf.schema import (
     CharacterMapping,
-    Confidence,
     FaceChannel,
     PerformanceFrame,
     SemanticPerformancePackage,
@@ -43,6 +42,13 @@ def retarget(
 
     Body joints and head pose are preserved unchanged.
     """
+    if retarget_profile.target_rig_id != rig_profile.profile_id:
+        raise RetargetError(
+            f"RetargetProfile {retarget_profile.profile_id!r} targets rig "
+            f"{retarget_profile.target_rig_id!r} but rig_profile is "
+            f"{rig_profile.profile_id!r}"
+        )
+
     if (
         retarget_profile.source_rig_id != "*"
         and pkg.character_mapping
@@ -89,9 +95,9 @@ def _retarget_frame(
 
         if mapping is None:
             if unmapped_policy == "passthrough":
-                out_channels.append(source_ch)
+                out_channels.append(copy.deepcopy(source_ch))
             elif unmapped_policy == "zero":
-                out_channels.append(FaceChannel(name=source_ch.name, value=0.0, confidence=Confidence(0.0, reason="unmapped")))
+                out_channels.append(FaceChannel(name=source_ch.name, value=0.0, confidence=None))
             # else "drop" → skip
             continue
 

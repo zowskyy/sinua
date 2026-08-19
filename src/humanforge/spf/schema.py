@@ -47,10 +47,6 @@ class Confidence:
     def certain(cls) -> "Confidence":
         return cls(value=1.0)
 
-    @classmethod
-    def unknown(cls) -> "Confidence":
-        return cls(value=0.0, reason="unknown")
-
 
 @dataclass
 class FrameTimecode:

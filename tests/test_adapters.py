@@ -109,9 +109,9 @@ class TestCurvesAdapter:
         pkg = CurvesSourceAdapter().ingest(p)
         ch = pkg.frames[1].face_channel("jawOpen")
         assert ch is not None
-        assert ch.confidence is not None
-        assert ch.confidence.value == 0.0
-        assert ch.confidence.reason == "missing"
+        # Missing values use confidence=None ("not measured") per SPF contract
+        assert ch.confidence is None
+        assert ch.value == 0.0
 
     def test_can_handle_returns_true_for_json(self, tmp_path):
         from humanforge.adapters.source.curves import CurvesSourceAdapter

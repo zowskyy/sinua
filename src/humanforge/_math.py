@@ -165,7 +165,8 @@ def _matrix_to_euler_xyz(
         rz = math.degrees(math.atan2(-m[0][1], m[0][0]))
     else:
         # Gimbal lock: absorb everything into rx, set rz=0
-        rx = math.degrees(math.atan2(-m[1][2], m[1][1]))
+        sign = 1.0 if sy > 0.0 else -1.0
+        rx = math.degrees(math.atan2(sign * m[1][0], m[1][1]))
         rz = 0.0
     return (rx, ry, rz)
 

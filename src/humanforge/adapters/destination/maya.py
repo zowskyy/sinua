@@ -23,11 +23,7 @@ class MayaDestinationAdapter(DestinationAdapter):
     DESTINATION_TYPE = "maya"
 
     def can_export(self, pkg: SemanticPerformancePackage) -> bool:
-        try:
-            import maya.cmds  # noqa: F401
-            return True
-        except ImportError:
-            return False
+        return False  # export() is not yet implemented
 
     def export(
         self,

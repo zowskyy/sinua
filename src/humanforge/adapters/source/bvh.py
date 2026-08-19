@@ -23,7 +23,6 @@ from humanforge.adapters.registry import register_source
 from humanforge.spf.schema import (
     SCHEMA_VERSION,
     BodyJoint,
-    Confidence,
     FrameTimecode,
     PerformanceFrame,
     SemanticPerformancePackage,
@@ -63,7 +62,10 @@ def _parse_bvh(text: str) -> _BvhFile:
     tokens = iter(text.split())
 
     def _next() -> str:
-        return next(tokens)
+        try:
+            return next(tokens)
+        except StopIteration:
+            raise AdapterError("BVH parse error: unexpected end of file") from None
 
     def _expect(val: str) -> None:
         tok = _next()
@@ -123,10 +125,9 @@ def _parse_bvh(text: str) -> _BvhFile:
     _expect("Time:")
     frame_time = float(_next())
 
+    total_ch = sum(len(j.channels) for j in all_joints)
     frames: list[list[float]] = []
     for _ in range(frame_count):
-        # Count total channels
-        total_ch = sum(len(j.channels) for j in all_joints)
         row = [float(_next()) for _ in range(total_ch)]
         frames.append(row)
 
@@ -198,7 +199,7 @@ def _extract_frame(
                 name=joint.name,
                 position=position,
                 rotation_quaternion=q,
-                confidence=Confidence.certain(),
+                confidence=None,
             )
         )
 

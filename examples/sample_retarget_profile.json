@@ -1,6 +1,9 @@
 {
+  "profile_id": "example.arkit-to-hero.v1",
+  "name": "ARKit to Hero Rig",
   "source_rig_id": "arkit.face.v1",
   "target_rig_id": "example.hero.rig.v1",
+  "version": "1.0",
   "channel_mappings": [
     {"source_name": "jawOpen",         "target_name": "jawOpen",         "scale": 1.0,  "offset": 0.0, "invert": false},
     {"source_name": "mouthSmileLeft",  "target_name": "mouthSmileLeft",  "scale": 0.9,  "offset": 0.0, "invert": false},
