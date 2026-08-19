@@ -12,6 +12,10 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "pytest-cov>=5"]
+video = []
+audio = []
+gltf = []
+fbx = []
 
 [project.scripts]
 humanforge = "humanforge.cli:main"

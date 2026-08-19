@@ -217,8 +217,7 @@ class TestSerialization:
         d = package_to_dict(pkg)
         d["schema_version"] = "99.0"
         with pytest.raises(ValueError, match="incompatible"):
-            from humanforge.spf.serialization import _check_version
-            _check_version("99.0")
+            package_from_dict(d)
 
     def test_json_output_is_valid_json(self):
         pkg = make_package(2)

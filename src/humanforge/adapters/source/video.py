@@ -25,8 +25,7 @@ class VideoSourceAdapter(SourceAdapter):
     SUPPORT_LEVEL = 1  # Native
 
     def can_handle(self, source: str | Path) -> bool:
-        p = Path(source)
-        return p.suffix.lower() in _VIDEO_EXTENSIONS and p.exists()
+        return False  # stub — not yet implemented; install humanforge[video]
 
     def ingest(
         self,
@@ -46,8 +45,7 @@ class WebcamSourceAdapter(SourceAdapter):
     SUPPORT_LEVEL = 1  # Native
 
     def can_handle(self, source: str | Path) -> bool:
-        s = str(source)
-        return s.startswith("webcam://") or s.isdigit()
+        return False  # stub — not yet implemented; install humanforge[video]
 
     def ingest(
         self,

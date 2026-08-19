@@ -18,7 +18,7 @@ class GltfDestinationAdapter(DestinationAdapter):
     DESTINATION_TYPE = "gltf"
 
     def can_export(self, pkg: SemanticPerformancePackage) -> bool:
-        return bool(pkg.character_mapping or pkg.face_channel_names() or pkg.body_joint_names())
+        return False  # stub — not yet implemented; install humanforge[gltf]
 
     def export(
         self,

@@ -23,8 +23,7 @@ class AudioSourceAdapter(SourceAdapter):
     SUPPORT_LEVEL = 1  # Native
 
     def can_handle(self, source: str | Path) -> bool:
-        p = Path(source)
-        return p.suffix.lower() in _AUDIO_EXTENSIONS and p.exists()
+        return False  # stub — not yet implemented; install humanforge[audio]
 
     def ingest(
         self,

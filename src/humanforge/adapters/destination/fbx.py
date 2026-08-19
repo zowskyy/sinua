@@ -21,7 +21,7 @@ class FbxDestinationAdapter(DestinationAdapter):
     DESTINATION_TYPE = "fbx"
 
     def can_export(self, pkg: SemanticPerformancePackage) -> bool:
-        return bool(pkg.character_mapping or pkg.body_joint_names())
+        return False  # stub — not yet implemented; install humanforge[fbx]
 
     def export(
         self,

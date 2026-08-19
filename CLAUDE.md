@@ -67,7 +67,7 @@ Engine plugins read the sidecar. This keeps all DCC/engine deps out of core.
 ### Immutability
 
 `retarget()` returns a **new** `SemanticPerformancePackage`; the input is never mutated.
-The fluent `Pipeline` likewise builds a new result at each step.
+The fluent `Pipeline` is a mutable builder — each step mutates the pipeline state and returns `self`.
 
 ## Running tests
 
