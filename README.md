@@ -59,7 +59,7 @@ result = (
     .export("blender", "animation.hfb.json")
     .result()
 )
-print(f"Exported {result['package'].frame_count} frames → {result['export_path']}")
+print(f"Exported {result.package.frame_count} frames → {result.export_path}")
 ```
 
 ---
