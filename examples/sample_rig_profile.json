@@ -1,0 +1,20 @@
+{
+  "profile_id": "example.hero.rig.v1",
+  "facial_controls": [
+    {"name": "jawOpen",         "min": 0.0, "max": 1.0, "default": 0.0},
+    {"name": "mouthSmileLeft",  "min": 0.0, "max": 1.0, "default": 0.0},
+    {"name": "mouthSmileRight", "min": 0.0, "max": 1.0, "default": 0.0},
+    {"name": "eyeBlinkLeft",    "min": 0.0, "max": 1.0, "default": 0.0},
+    {"name": "eyeBlinkRight",   "min": 0.0, "max": 1.0, "default": 0.0},
+    {"name": "browInnerUp",     "min": 0.0, "max": 1.0, "default": 0.0},
+    {"name": "mouthFunnel",     "min": 0.0, "max": 1.0, "default": 0.0}
+  ],
+  "skeleton_joints": [
+    {"name": "Root",   "parent": null},
+    {"name": "Hips",   "parent": "Root"},
+    {"name": "Spine",  "parent": "Hips"},
+    {"name": "Chest",  "parent": "Spine"},
+    {"name": "Neck",   "parent": "Chest"},
+    {"name": "Head",   "parent": "Neck"}
+  ]
+}
